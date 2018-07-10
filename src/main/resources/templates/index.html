@@ -33,16 +33,11 @@
                 },
                 onUpload : function(file) {//开始上传
                     document.getElementById("submit").disabled = true;//当开始上传文件，要防止上传未完成而表单被提交
-                },
+                }
             };
 
 
-            $("#file_upload").uploadifive({
-                'auto' : true,//是否自动上传
-                'queueID' : 'queue',//显示文件上传进度的元素id
-                'uploadScript' : '/upload',//服务器端处理文件上传的文件访问路径
-                'onUploadComplete' : function(file, data) { console.log(data)}
-            })
+            $("#file_upload").uploadifive(options);
         })
     </script>
 
