@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" href="./uploadify/uploadifive.css"/>
+    <script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./uploadify/jquery.uploadifive.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            var options = {
+                'auto' : true,//是否自动上传
+                'queueID' : 'queue',//显示文件上传进度的元素id
+                'checkScript' : '/upload',//上传路径
+                'formData' : {'timestamp' : new Date().getTime()},//表单数据
+                'fileType': '.gif, .jpg, .png, .jpeg, .bmp, .doc, .ppt, .xls, .xlsx, .docx, .pptx, .zip, .rar, .pdf',//支持格式
+                'multi': true,//是否支持多文件上传
+                'fileSizeLimit': '20MB',//文件大小限制
+                'uploadLimit': 10,//文件个数限制
+                'buttonText': "选择文件",//上传按钮文件提示
+                'removeCompleted' : true,//上传成功后是否移除
+                'onUploadComplete' : function(file, data) {//上传完成回调
+                    var obj = JSON.parse(data);
+                    console.log(data);
+                },
+                onCancel : function(file) {//取消上传回调
+                    alert(file.name + " 已取消上传~!");
+                },
+                onFallback : function() {//上传失败回调
+                    alert("该浏览器无法使用!");
+                },
+                onUpload : function(file) {//开始上传
+                    document.getElementById("submit").disabled = true;//当开始上传文件，要防止上传未完成而表单被提交
+                },
+            };
+
+
+            $("#file_upload").uploadifive({
+                'auto' : true,//是否自动上传
+                'queueID' : 'queue',//显示文件上传进度的元素id
+                'uploadScript' : '/upload',//服务器端处理文件上传的文件访问路径
+                'onUploadComplete' : function(file, data) { console.log(data)}
+            })
+        })
+    </script>
+
+</head>
+<body>
+<h1>UploadiFive Demo</h1>
+<form>
+    <input id="file_upload" name="file_upload" type="file" multiple="true">
+    <div id="queue"></div>
+</form>
+
+
+</body>
+</html>
